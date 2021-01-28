@@ -59,7 +59,7 @@ def test_description_is_str():
         raise AssertionError('The exception was not raised.')
     except Exception as error:
         assert isinstance(error, TypeError)
-        assert error.args == ('Description cannot be str.',)
+        assert error.args == ('Description must be str.',)
 
 
 def test_description_len():

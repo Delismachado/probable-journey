@@ -10,9 +10,9 @@ from src.models.base_model import BaseModel
 class Category(BaseModel):
     __tablename__ = 'category'
     name = Column('name', String(length=200), nullable=False)
-    description = Column('description', String(length=200), nullable=False)
+    description = Column('description', String(length=200), nullable=True)
 
-    def __init__(self, name: str, description: str) -> None:
+    def __init__(self, name: str, description: str = None) -> None:
         self.name = name
         self.description = description
 
@@ -31,7 +31,7 @@ class Category(BaseModel):
     @validates('description')
     def validate_description(self, key, description):
         if not isinstance(description, str):
-            raise TypeError('Description cannot be str.')
+            raise TypeError('Description must be str.')
         if len(description) > 200:
             raise ValueError('Description can not more then 200.')
         return description
