@@ -1,8 +1,7 @@
-import sys
-
-sys.path.append('.')
 from src.models.category import Category
 from src.models.base_model import BaseModel
+
+import pytest
 
 
 def test_category_model():
@@ -18,54 +17,30 @@ def test_category_model():
 
 
 def test_name_is_not_null():
-    try:
+    with pytest.raises(ValueError):
         category = Category(None, 'desc001')
-        raise AssertionError('The exception was not raised.')
-    except Exception as error:
-        assert isinstance(error, ValueError)
-        assert error.args == ('Name cannot be null.',)
 
 
 def test_name_is_str():
-    try:
+    with pytest.raises(TypeError):
         category = Category(0.1, 'desc002')
-        raise AssertionError('The exception was not raised.')
-    except Exception as error:
-        assert isinstance(error, TypeError)
-        assert error.args == ('Name should be str.',)
 
 
 def test_empty_name():
-    try:
+    with pytest.raises(ValueError):
         category = Category('', 'desc003')
-        raise AssertionError('The exception was not raised.')
-    except Exception as error:
-        assert isinstance(error, ValueError)
-        assert error.args == ('Name cannot be empty.',)
 
 
 def test_name_len():
-    try:
+    with pytest.raises(ValueError):
         category = Category('x' * 201, 'desc004')
-        raise AssertionError('The exception was not raised.')
-    except Exception as error:
-        assert isinstance(error, ValueError)
-        assert error.args == ('Name cannot larger then 200 characters.',)
 
 
 def test_description_is_str():
-    try:
+    with pytest.raises(TypeError):
         category = Category('name', 1.0)
-        raise AssertionError('The exception was not raised.')
-    except Exception as error:
-        assert isinstance(error, TypeError)
-        assert error.args == ('Description must be str.',)
 
 
 def test_description_len():
-    try:
+    with pytest.raises(ValueError):
         category = Category('name', 'desc005' * 500)
-        raise AssertionError('The exception was not raised.')
-    except Exception as error:
-        assert isinstance(error, ValueError)
-        assert error.args == ('Description can not more then 200.',)
