@@ -15,5 +15,7 @@ def validate_not_empty(value: str, key: str):
 
 def validate_len(value: object, max_len: int, key: str):
     if len(value) > max_len:
-        raise ValueError(f"{key.capitalize()} can't be greater than {max_len} characters.")
+        raise ValueError(
+            f"{key.capitalize()} can't be greater than {max_len} characters."
+        )
     return value

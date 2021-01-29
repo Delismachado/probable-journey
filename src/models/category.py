@@ -18,7 +18,6 @@ class Category(BaseModel):
     def validate_name(self, key, name):
         name = validate_type(name, str, key)
         name = validate_not_empty(name, key)
-        name = validate_not_empty(name.strip(), key)
         name = validate_len(name, 200, key)
         return name
 
