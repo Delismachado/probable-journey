@@ -1,6 +1,8 @@
 from sqlalchemy import Column, String
 from sqlalchemy.orm import validates
+
 from src.models.base_model import BaseModel
+from src.utils.validators import validate_type, validate_empty, validate_len
 
 
 class Category(BaseModel):
@@ -14,20 +16,11 @@ class Category(BaseModel):
 
     @validates('name')
     def validate_name(self, key, name):
-        if  name is None:
-            raise ValueError('Name cannot be null.')
-        if not isinstance(name, str):
-            raise TypeError('Name should be str.')
-        if not name.strip():
-            raise ValueError('Name cannot be empty.')
-        if len(name) > 200:
-            raise ValueError('Name cannot larger then 200 characters.')
-        return name
+        name = validate_type(name, key, str)
+        name = validate_empty(name, key)
+        return validate_len(name, key, 200)
 
     @validates('description')
     def validate_description(self, key, description):
-        if not isinstance(description, str):
-            raise TypeError('Description must be str.')
-        if len(description) > 200:
-            raise ValueError('Description can not more then 200.')
-        return description
+        description = validate_type(description, key, str)
+        return validate_len(description, key, 200)
