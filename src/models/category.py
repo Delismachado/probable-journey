@@ -1,8 +1,8 @@
 from sqlalchemy import Column, String
 from sqlalchemy.orm import validates
+
 from src.models.base_model import BaseModel
 from src.utils.validators import validate_type, validate_not_empty, validate_len
-
 
 
 class Category(BaseModel):
