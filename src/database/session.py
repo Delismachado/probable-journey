@@ -17,6 +17,6 @@ class Session:
         self.__session = Session()
         return self.__session
 
-    def __exit__(self, type, value, traceback):
+    def __exit__(self, exc_type, exc_value, traceback):
         self.__session.close()
         self.__engine.dispose()
